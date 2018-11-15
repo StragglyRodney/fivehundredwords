@@ -13,4 +13,17 @@
   <div class="loading-image" *ngIf="loadingProfile">
     <i class="fas fa-circle-notch fa-4x fa-spin"></i>
   </div>
+
+  <textarea [(ngModel)]="myTextarea" rows=23 cols=100></textarea>
+
+  <div *ngIf="myTextarea != null">
+    <div *ngIf="myTextarea.split(' ').length >= 5">
+      <h2 style="color:green; text-align: center">&#10004;</h2>
+    </div>
+
+    <div *ngIf="myTextarea.split(' ').length < 500">
+      <h2 style="color:red; text-align: center">Word Count: {{myTextarea.split(' ').length}}</h2>
+    </div>
+  </div>
+
 </div>
