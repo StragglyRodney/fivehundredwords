@@ -11,20 +11,22 @@ import { AuthService } from '../services/solid.auth.service';
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css'],
 })
-export class CardComponent implements OnInit  {
+export class CardComponent implements OnInit {
 
   profile: SolidProfile;
   profileImage: string;
   loadingProfile: Boolean;
+  today: number;
 
   @ViewChild('f') cardForm: NgForm;
 
   constructor(private rdf: RdfService,
-    private route: ActivatedRoute, private auth: AuthService) {}
+    private route: ActivatedRoute, private auth: AuthService) { }
 
   ngOnInit() {
     this.loadingProfile = true;
     this.loadProfile();
+    this.today = Date.now();
 
     // Clear cached profile data
     // TODO: Remove this code and find a better way to get the old data
@@ -50,7 +52,7 @@ export class CardComponent implements OnInit  {
   }
 
   // Submits the form, and saves the profile data using the auth/rdf service
-  async onSubmit () {
+  async onSubmit() {
     if (!this.cardForm.invalid) {
       try {
         await this.rdf.updateProfile(this.cardForm);
